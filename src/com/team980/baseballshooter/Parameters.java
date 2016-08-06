@@ -9,4 +9,7 @@ public class Parameters {
 	
 	public static int jsTriggerButton = 1;
 	public static int jsFailsafeButton = 9;
+	
+	// -- SOLENOID TEST BENCH --
+	public static int solenoidRelayChannel = -1; //TODO determine PWM channel value
 }
