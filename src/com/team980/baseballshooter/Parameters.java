@@ -14,11 +14,11 @@ public class Parameters {
 	public static double autoSpeed = 1.0;
 	
 	// --- ENCODERS --- 
-	public static int leftDriveEncA = -1; //TODO plug the encoders into the DIO
-	public static int leftDriveEncB = -1; //TODO and record the channels
+	public static int leftDriveEncA = 0;
+	public static int leftDriveEncB = 1;
 	
-	public static int rightDriveEncA = -1;
-	public static int rightDriveEncB = -1;
+	public static int rightDriveEncA = 2;
+	public static int rightDriveEncB = 3;
 	
 	// --- JOYSTICKS / DRIVER INPUTS ---
 	public static int driveJsChannel = 0;
