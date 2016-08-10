@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 	
@@ -22,14 +23,15 @@ public class Robot extends IterativeRobot {
 		
 		leftDriveEnc = new Encoder(Parameters.leftDriveEncA, Parameters.leftDriveEncB);
 		//leftDriveEnc.setDistancePerPulse(null); TODO figure out the calculations for this
-		//leftDriveEnc.setReverseDirection(null);
+		//leftDriveEnc.setReverseDirection(true);
 		rightDriveEnc = new Encoder(Parameters.rightDriveEncA, Parameters.rightDriveEncB);
 		//rightDriveEnc.setDistancePerPulse(null); TODO crunch the numbers
-		//rightDriveEnc.setReverseDirection(null);
+		//rightDriveEnc.setReverseDirection(true);
 	}
 		
     public void robotInit() {
-    	
+    	leftDriveEnc.reset();
+    	rightDriveEnc.reset();
     }
     
     public void autonomousInit() {
@@ -49,8 +51,8 @@ public class Robot extends IterativeRobot {
     				Parameters.rightMotorMultiplier * Parameters.autoSpeed);
     	}
     	
-    	//TODO print values to SmartDashboard
-    
+    	SmartDashboard.putNumber("Current Distance - Left", currentDistLeft);
+    	SmartDashboard.putNumber("Current Distance - Right", currentDistRight);
     }
 
     public void teleopPeriodic() {
