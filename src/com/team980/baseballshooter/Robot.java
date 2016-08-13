@@ -4,6 +4,7 @@ package com.team980.baseballshooter;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -13,6 +14,9 @@ public class Robot extends IterativeRobot {
 	
 	private Joystick driveStick;
 	
+	private Relay winchRelay;
+	private Relay solenoidRelay;
+	
 	private Encoder leftDriveEnc;
 	private Encoder rightDriveEnc;
 	
@@ -20,6 +24,9 @@ public class Robot extends IterativeRobot {
 		robotDrive = new RobotDrive(Parameters.leftDriveMotorChannel, Parameters.rightDriveMotorChannel);
 		
 		driveStick = new Joystick(Parameters.driveJsChannel);
+		
+		winchRelay = new Relay(Parameters.winchRelayChannel);
+		solenoidRelay = new Relay(Parameters.solenoidRelayChannel);
 		
 		leftDriveEnc = new Encoder(Parameters.leftDriveEncA, Parameters.leftDriveEncB);
 		//leftDriveEnc.setDistancePerPulse(null); TODO figure out the calculations for this
@@ -57,8 +64,23 @@ public class Robot extends IterativeRobot {
 
     public void teleopPeriodic() {
     	
+    	if (driveStick.getRawButton(Parameters.driveJsWinchPullButton)) {
+    		//Pull the winch
+    		winchRelay.set(Relay.Value.kReverse);
+    	} else if (driveStick.getRawButton(Parameters.driveJsWinchReleaseButton)) {
+    		//Release the winch
+    		winchRelay.set(Relay.Value.kForward);
+    	} else {
+    		//Do nothing with the winch
+    		winchRelay.set(Relay.Value.kOff);
+    	}
+    	
     	if (driveStick.getRawButton(Parameters.driveJsTriggerButton) && driveStick.getRawButton(Parameters.driveJsFailsafeButton)) {
-    		//Fire the cannon!
+    		//Fire the baseball!
+    		solenoidRelay.set(Relay.Value.kForward);
+    	} else {
+    		//Don't fire
+    		solenoidRelay.set(Relay.Value.kOff);
     	}
     	
         robotDrive.arcadeDrive(driveStick, Joystick.AxisType.kY.value, driveStick, Joystick.AxisType.kZ.value);
