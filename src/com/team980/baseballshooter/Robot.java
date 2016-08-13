@@ -29,11 +29,11 @@ public class Robot extends IterativeRobot {
 		solenoidRelay = new Relay(Parameters.solenoidRelayChannel);
 		
 		leftDriveEnc = new Encoder(Parameters.leftDriveEncA, Parameters.leftDriveEncB);
-		//leftDriveEnc.setDistancePerPulse(null); TODO figure out the calculations for this
-		//leftDriveEnc.setReverseDirection(true);
+		//leftDriveEnc.setDistancePerPulse(2*Constants.pi*(Constants.wheelRadius/Constants.inchesInFeet)/Parameters.driveEncoderCounts); TODO figure out the calculations for this
+		//leftDriveEnc.setReverseDirection(Parameters.leftDriveEncInv);
 		rightDriveEnc = new Encoder(Parameters.rightDriveEncA, Parameters.rightDriveEncB);
-		//rightDriveEnc.setDistancePerPulse(null); TODO crunch the numbers
-		//rightDriveEnc.setReverseDirection(true);
+		//rightDriveEnc.setDistancePerPulse(2*Constants.pi*(Constants.wheelRadius/Constants.inchesInFeet)/Parameters.driveEncoderCounts); TODO crunch the numbers
+		//rightDriveEnc.setReverseDirection(Parameters.rightDriveEncInv);
 	}
 		
     public void robotInit() {
