@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
@@ -14,8 +15,9 @@ public class Robot extends IterativeRobot {
 	
 	private Joystick driveStick;
 	
-	private Relay winchRelay;
 	private Relay solenoidRelay;
+	
+	private Spark winchMotorController;
 	
 	private Encoder leftDriveEnc;
 	private Encoder rightDriveEnc;
@@ -25,8 +27,9 @@ public class Robot extends IterativeRobot {
 		
 		driveStick = new Joystick(Parameters.driveJsChannel);
 		
-		winchRelay = new Relay(Parameters.winchRelayChannel);
 		solenoidRelay = new Relay(Parameters.solenoidRelayChannel);
+		
+		winchMotorController = new Spark(Parameters.winchMotorController);
 		
 		leftDriveEnc = new Encoder(Parameters.leftDriveEncA, Parameters.leftDriveEncB);
 		//leftDriveEnc.setDistancePerPulse(2*Constants.pi*(Constants.wheelRadius/Constants.inchesInFeet)/Parameters.driveEncoderCounts); TODO figure out the calculations for this
@@ -66,13 +69,13 @@ public class Robot extends IterativeRobot {
     	
     	if (driveStick.getRawButton(Parameters.driveJsWinchPullButton)) {
     		//Pull the winch
-    		winchRelay.set(Relay.Value.kReverse);
+    		winchMotorController.set(-1.0);
     	} else if (driveStick.getRawButton(Parameters.driveJsWinchReleaseButton)) {
     		//Release the winch
-    		winchRelay.set(Relay.Value.kForward);
+    		winchMotorController.set(1.0);
     	} else {
     		//Do nothing with the winch
-    		winchRelay.set(Relay.Value.kOff);
+    		winchMotorController.set(0.0);
     	}
     	
     	if (driveStick.getRawButton(Parameters.driveJsTriggerButton) && driveStick.getRawButton(Parameters.driveJsFailsafeButton)) {

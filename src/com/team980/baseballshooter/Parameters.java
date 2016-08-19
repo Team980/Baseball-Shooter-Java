@@ -14,8 +14,10 @@ public class Parameters {
 	public static double autoSpeed = 1.0;
 	
 	// --- RELAYS ---
-	public static int winchRelayChannel = 0;
-	public static int solenoidRelayChannel = 1;
+	public static int solenoidRelayChannel = 0;
+	
+	// --- MOTOR CONTROLLERS ---
+	public static int winchMotorController = 0; //TODO determine
 	
 	// --- ENCODERS --- 
 	public static int leftDriveEncA = 0;
