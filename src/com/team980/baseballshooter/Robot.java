@@ -66,10 +66,10 @@ public class Robot extends IterativeRobot {
     	
     	if (driveStick.getRawButton(Parameters.driveJsWinchPullButton)) {
     		//Pull the winch
-    		winchRelay.set(Relay.Value.kReverse);
+    		winchRelay.set(Relay.Value.kForward);
     	} else if (driveStick.getRawButton(Parameters.driveJsWinchReleaseButton)) {
     		//Release the winch
-    		winchRelay.set(Relay.Value.kForward);
+    		winchRelay.set(Relay.Value.kReverse);
     	} else {
     		//Do nothing with the winch
     		winchRelay.set(Relay.Value.kOff);
@@ -78,12 +78,13 @@ public class Robot extends IterativeRobot {
     	if (driveStick.getRawButton(Parameters.driveJsTriggerButton) && driveStick.getRawButton(Parameters.driveJsFailsafeButton)) {
     		//Fire the baseball!
     		solenoidRelay.set(Relay.Value.kForward);
+    		System.out.println("FIRE THE CANNON");
     	} else {
     		//Don't fire
     		solenoidRelay.set(Relay.Value.kOff);
     	}
     	
-        robotDrive.arcadeDrive(driveStick, Joystick.AxisType.kY.value, driveStick, Joystick.AxisType.kZ.value);
+        //robotDrive.arcadeDrive(driveStick, Joystick.AxisType.kY.value, driveStick, Joystick.AxisType.kZ.value);
     }
     
     public void testPeriodic() {
