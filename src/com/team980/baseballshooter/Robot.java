@@ -17,8 +17,8 @@ public class Robot extends IterativeRobot {
 	private Relay winchRelay;
 	private Relay solenoidRelay;
 	
-	private Encoder leftDriveEnc;
-	private Encoder rightDriveEnc;
+	//private Encoder leftDriveEnc;
+	//private Encoder rightDriveEnc;
 	
 	public Robot() {
 		robotDrive = new RobotDrive(Parameters.leftDriveMotorChannel, Parameters.rightDriveMotorChannel);
@@ -28,17 +28,17 @@ public class Robot extends IterativeRobot {
 		winchRelay = new Relay(Parameters.winchRelayChannel);
 		solenoidRelay = new Relay(Parameters.solenoidRelayChannel);
 		
-		leftDriveEnc = new Encoder(Parameters.leftDriveEncA, Parameters.leftDriveEncB);
+		//leftDriveEnc = new Encoder(Parameters.leftDriveEncA, Parameters.leftDriveEncB);
 		//leftDriveEnc.setDistancePerPulse(2*Constants.pi*(Constants.wheelRadius/Constants.inchesInFeet)/Parameters.driveEncoderCounts); TODO figure out the calculations for this
 		//leftDriveEnc.setReverseDirection(Parameters.leftDriveEncInv);
-		rightDriveEnc = new Encoder(Parameters.rightDriveEncA, Parameters.rightDriveEncB);
+		//rightDriveEnc = new Encoder(Parameters.rightDriveEncA, Parameters.rightDriveEncB);
 		//rightDriveEnc.setDistancePerPulse(2*Constants.pi*(Constants.wheelRadius/Constants.inchesInFeet)/Parameters.driveEncoderCounts); TODO crunch the numbers
 		//rightDriveEnc.setReverseDirection(Parameters.rightDriveEncInv);
 	}
 		
     public void robotInit() {
-    	leftDriveEnc.reset();
-    	rightDriveEnc.reset();
+    	//leftDriveEnc.reset();
+    	//rightDriveEnc.reset();
     }
     
     public void autonomousInit() {
@@ -47,7 +47,7 @@ public class Robot extends IterativeRobot {
 
     public void autonomousPeriodic() {
     	
-    	double currentDistLeft = leftDriveEnc.getDistance();
+    	/*double currentDistLeft = leftDriveEnc.getDistance();
     	double currentDistRight = rightDriveEnc.getDistance();
     	
     	if (currentDistLeft > Parameters.autoDistance &&
@@ -59,7 +59,7 @@ public class Robot extends IterativeRobot {
     	}
     	
     	SmartDashboard.putNumber("Current Distance - Left", currentDistLeft);
-    	SmartDashboard.putNumber("Current Distance - Right", currentDistRight);
+    	SmartDashboard.putNumber("Current Distance - Right", currentDistRight);*/
     }
 
     public void teleopPeriodic() {
