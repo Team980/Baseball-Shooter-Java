@@ -67,9 +67,11 @@ public class Robot extends IterativeRobot {
     	if (driveStick.getRawButton(Parameters.driveJsWinchPullButton)) {
     		//Pull the winch
     		winchRelay.set(Relay.Value.kForward);
+    		//System.out.println("Relay FORWARD");
     	} else if (driveStick.getRawButton(Parameters.driveJsWinchReleaseButton)) {
     		//Release the winch
     		winchRelay.set(Relay.Value.kReverse);
+    		//System.out.println("Relay REVERSE");
     	} else {
     		//Do nothing with the winch
     		winchRelay.set(Relay.Value.kOff);
@@ -78,7 +80,7 @@ public class Robot extends IterativeRobot {
     	if (driveStick.getRawButton(Parameters.driveJsTriggerButton) && driveStick.getRawButton(Parameters.driveJsFailsafeButton)) {
     		//Fire the baseball!
     		solenoidRelay.set(Relay.Value.kForward);
-    		System.out.println("FIRE THE CANNON");
+    		//System.out.println("FIRE THE CANNON");
     	} else {
     		//Don't fire
     		solenoidRelay.set(Relay.Value.kOff);
