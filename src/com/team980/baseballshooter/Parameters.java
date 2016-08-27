@@ -33,7 +33,9 @@ public class Parameters {
 	
 	public static int driveJsWinchPullButton = 3;
 	public static int driveJsWinchReleaseButton = 4;
+	
 	public static int driveJsTriggerButton = 1;
 	public static int driveJsFailsafeButton = 9;
 	public static int driveJsRetractButton = 2;
+	public static int driveJsEStopButton = 5; //for testing
 }
