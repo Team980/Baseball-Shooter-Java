@@ -97,7 +97,6 @@ public class Robot extends IterativeRobot {
     		//System.out.println("FIRE THE CANNON");
     		
     	} 
-
     	
         if (firing && ((firingTimer.get() >= stopTime) || (driveStick.getRawButton(Parameters.driveJsEStopButton)))) {
     		firing = false;
