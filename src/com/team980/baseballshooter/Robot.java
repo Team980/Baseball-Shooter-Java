@@ -86,7 +86,7 @@ public class Robot extends IterativeRobot {
     		solenoidRelay.set(Relay.Value.kOff);
     	}
     	
-        //robotDrive.arcadeDrive(driveStick, Joystick.AxisType.kY.value, driveStick, Joystick.AxisType.kZ.value);
+        robotDrive.arcadeDrive(driveStick, Joystick.AxisType.kY.value, driveStick, Joystick.AxisType.kZ.value);
     }
     
     public void testPeriodic() {
