@@ -27,6 +27,9 @@ public class Parameters {
 	public static boolean rightDriveEncInv = false; //TODO
 	
 	public static int driveEncoderCounts = -1; //TODO
+	
+	// --- TIMINGS ---\
+	public static double actuatorStopTime = 1.5;
 
 	// --- JOYSTICKS / DRIVER INPUTS ---
 	public static int driveJsChannel = 0;
