@@ -18,6 +18,7 @@ public class Robot extends IterativeRobot {
 	private Relay winchRelay;
 	private Relay actuatorRelay;
 	
+	private boolean canFire = true;
 	private boolean firing = false;
 	private Timer firingTimer;
 	private double stopTime;
@@ -70,7 +71,7 @@ public class Robot extends IterativeRobot {
     }
     
     public void teleopInit() {
-    	firingTimer.reset();
+    	firingTimer.start();
     }
 
     public void teleopPeriodic() {
@@ -88,36 +89,37 @@ public class Robot extends IterativeRobot {
     		winchRelay.set(Relay.Value.kOff);
     	}
     	
-    	if (driveStick.getRawButton(Parameters.driveJsTriggerButton) && driveStick.getRawButton(Parameters.driveJsFailsafeButton)) {
+    	if (driveStick.getRawButton(Parameters.driveJsTriggerButton) && driveStick.getRawButton(Parameters.driveJsFailsafeButton) 
+    		 && canFire) {
     		//Fire the baseball!
     		firing = true;
+    		canFire = false;
     		
-    		firingTimer.start();
     		stopTime = firingTimer.get() + Parameters.actuatorStopTime;
-    		//System.out.println("FIRE THE CANNON");
-    		
+    		System.out.println("FIRE THE CANNON");
     	} 
     	
         if (firing && ((firingTimer.get() >= stopTime) || (driveStick.getRawButton(Parameters.driveJsEStopButton)))) {
     		firing = false;
-    		
-    		actuatorRelay.set(Relay.Value.kOff);
-    		
-    		firingTimer.stop();
-        	firingTimer.reset();
+    	
+    		System.out.println("STOP THE CANNON");
     	}
     	
     	if (firing) {    	
     		//Fire the cannon!
     		actuatorRelay.set(Relay.Value.kForward);
-    	} else if (driveStick.getRawButton(Parameters.driveJsRetractButton)) {
+    		System.out.println("FIRING");
+    	} else if (driveStick.getRawButton(Parameters.driveJsRetractButton) && !driveStick.getRawButton(Parameters.driveJsEStopButton)) {
         	//Bring the actuator back
+    		canFire = true;
         	actuatorRelay.set(Relay.Value.kReverse);
+    		System.out.println("REVERSE");
         } else {
     		actuatorRelay.set(Relay.Value.kOff);
+    		System.out.println("NOPE");
         }
     	
-        robotDrive.arcadeDrive(driveStick, Joystick.AxisType.kY.value, driveStick, Joystick.AxisType.kZ.value);
+        //robotDrive.arcadeDrive(driveStick, Joystick.AxisType.kY.value, driveStick, Joystick.AxisType.kZ.value);
     }
     
     public void testPeriodic() {
