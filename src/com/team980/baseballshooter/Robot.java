@@ -93,7 +93,7 @@ public class Robot extends IterativeRobot {
     		firing = true;
     		
     		firingTimer.start();
-    		stopTime = firingTimer.get() + 1.5;
+    		stopTime = firingTimer.get() + Parameters.actuatorStopTime;
     		//System.out.println("FIRE THE CANNON");
     		
     	} 
