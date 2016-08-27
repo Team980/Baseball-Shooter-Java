@@ -100,7 +100,7 @@ public class Robot extends IterativeRobot {
     	} 
     	
         if (firing && ((firingTimer.get() >= stopTime) || (driveStick.getRawButton(Parameters.driveJsEStopButton)))) {
-    		firing = false;
+    		firing = false;;
     	
     		System.out.println("STOP THE CANNON");
     	}
@@ -119,7 +119,7 @@ public class Robot extends IterativeRobot {
     		System.out.println("NOPE");
         }
     	
-        //robotDrive.arcadeDrive(driveStick, Joystick.AxisType.kY.value, driveStick, Joystick.AxisType.kZ.value);
+        robotDrive.arcadeDrive(driveStick, Joystick.AxisType.kY.value, driveStick, Joystick.AxisType.kZ.value);
     }
     
     public void testPeriodic() {
