@@ -97,28 +97,26 @@ public class Robot extends IterativeRobot {
     		//System.out.println("FIRE THE CANNON");
     		
     	} 
-    	
-    	if (driveStick.getRawButton(Parameters.driveJsEStopButton)) { //FOR TESTING
-    		firing = false;
-    		
-    		actuatorRelay.set(Relay.Value.kOff);
 
-    		firingTimer.stop();
-        	firingTimer.reset();
-        } else if (firing && firingTimer.get() >= stopTime) {
+    	
+        if (firing && ((firingTimer.get() >= stopTime) || (driveStick.getRawButton(Parameters.driveJsEStopButton)))) {
     		firing = false;
     		
     		actuatorRelay.set(Relay.Value.kOff);
     		
     		firingTimer.stop();
         	firingTimer.reset();
-    	} else if (firing) {    	
+    	}
+    	
+    	if (firing) {    	
     		//Fire the cannon!
     		actuatorRelay.set(Relay.Value.kForward);
     	} else if (driveStick.getRawButton(Parameters.driveJsRetractButton)) {
         	//Bring the actuator back
         	actuatorRelay.set(Relay.Value.kReverse);
-        }	
+        } else {
+    		actuatorRelay.set(Relay.Value.kOff);
+        }
     	
         robotDrive.arcadeDrive(driveStick, Joystick.AxisType.kY.value, driveStick, Joystick.AxisType.kZ.value);
     }
