@@ -15,7 +15,7 @@ public class Parameters {
 	
 	// --- RELAYS ---
 	public static int winchRelayChannel = 0;
-	public static int solenoidRelayChannel = 1;
+	public static int actuatorRelayChannel = 1;
 	
 	// --- ENCODERS --- 
 	public static int leftDriveEncA = 0;
@@ -35,4 +35,5 @@ public class Parameters {
 	public static int driveJsWinchReleaseButton = 4;
 	public static int driveJsTriggerButton = 1;
 	public static int driveJsFailsafeButton = 9;
+	public static int driveJsRetractButton = 2;
 }

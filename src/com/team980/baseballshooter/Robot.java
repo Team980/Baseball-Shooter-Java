@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
@@ -15,7 +16,11 @@ public class Robot extends IterativeRobot {
 	private Joystick driveStick;
 	
 	private Relay winchRelay;
-	private Relay solenoidRelay;
+	private Relay actuatorRelay;
+	
+	private boolean firing = false;
+	private Timer firingTimer;
+	private double stopTime;
 	
 	//private Encoder leftDriveEnc;
 	//private Encoder rightDriveEnc;
@@ -26,7 +31,7 @@ public class Robot extends IterativeRobot {
 		driveStick = new Joystick(Parameters.driveJsChannel);
 		
 		winchRelay = new Relay(Parameters.winchRelayChannel);
-		solenoidRelay = new Relay(Parameters.solenoidRelayChannel);
+		actuatorRelay = new Relay(Parameters.actuatorRelayChannel);
 		
 		//leftDriveEnc = new Encoder(Parameters.leftDriveEncA, Parameters.leftDriveEncB);
 		//leftDriveEnc.setDistancePerPulse(2*Constants.pi*(Constants.wheelRadius/Constants.inchesInFeet)/Parameters.driveEncoderCounts); TODO figure out the calculations for this
@@ -34,6 +39,8 @@ public class Robot extends IterativeRobot {
 		//rightDriveEnc = new Encoder(Parameters.rightDriveEncA, Parameters.rightDriveEncB);
 		//rightDriveEnc.setDistancePerPulse(2*Constants.pi*(Constants.wheelRadius/Constants.inchesInFeet)/Parameters.driveEncoderCounts); TODO crunch the numbers
 		//rightDriveEnc.setReverseDirection(Parameters.rightDriveEncInv);
+		
+		firingTimer = new Timer();
 	}
 		
     public void robotInit() {
@@ -61,6 +68,10 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putNumber("Current Distance - Left", currentDistLeft);
     	SmartDashboard.putNumber("Current Distance - Right", currentDistRight);*/
     }
+    
+    public void teleopInit() {
+    	firingTimer.reset();
+    }
 
     public void teleopPeriodic() {
     	
@@ -79,12 +90,29 @@ public class Robot extends IterativeRobot {
     	
     	if (driveStick.getRawButton(Parameters.driveJsTriggerButton) && driveStick.getRawButton(Parameters.driveJsFailsafeButton)) {
     		//Fire the baseball!
-    		solenoidRelay.set(Relay.Value.kForward);
+    		firing = true;
+    		
+    		firingTimer.start();
+    		stopTime = firingTimer.get() + 1.5;
     		//System.out.println("FIRE THE CANNON");
-    	} else {
-    		//Don't fire
-    		solenoidRelay.set(Relay.Value.kOff);
-    	}
+    		
+    	} 
+    	
+    	if (firing && firingTimer.get() >= stopTime) {
+    		firing = false;
+    		
+    		firingTimer.stop();
+        	firingTimer.reset();
+
+    	} else if (firing) {    	
+    		//Fire the cannon!
+    		actuatorRelay.set(Relay.Value.kForward);
+    		
+    	} else if (driveStick.getRawButton(Parameters.driveJsRetractButton)) {
+        	//Bring the actuator back
+        	actuatorRelay.set(Relay.Value.kReverse);
+        	
+        }	
     	
         robotDrive.arcadeDrive(driveStick, Joystick.AxisType.kY.value, driveStick, Joystick.AxisType.kZ.value);
     }
