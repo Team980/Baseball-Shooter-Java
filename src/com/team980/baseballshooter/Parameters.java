@@ -5,6 +5,7 @@ public class Parameters {
 	// --- DRIVE SYSTEM ---
 	public static int leftDriveMotorChannel = 0;
 	public static int rightDriveMotorChannel = 1;
+	public static double maxDriveOutput = 0.4;
 	
 	public static double leftMotorMultiplier = 1.0; //TODO determine these values
 	public static double rightMotorMultiplier = 1.0; //TODO based on encoder tuning

@@ -28,6 +28,7 @@ public class Robot extends IterativeRobot {
 	
 	public Robot() {
 		robotDrive = new RobotDrive(Parameters.leftDriveMotorChannel, Parameters.rightDriveMotorChannel);
+		robotDrive.setMaxOutput(Parameters.maxDriveOutput);
 		
 		driveStick = new Joystick(Parameters.driveJsChannel);
 		
