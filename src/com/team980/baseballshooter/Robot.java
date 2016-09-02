@@ -120,7 +120,8 @@ public class Robot extends IterativeRobot {
     		System.out.println("NOPE");
         }
     	
-        robotDrive.arcadeDrive(driveStick, Joystick.AxisType.kY.value, driveStick, Joystick.AxisType.kZ.value);
+    	//Custom inputs to fix the turning
+        robotDrive.arcadeDrive(driveStick.getY(), driveStick.getZ() * -1);
     }
     
     public void testPeriodic() {
