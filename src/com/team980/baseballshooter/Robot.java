@@ -124,6 +124,11 @@ public class Robot extends IterativeRobot {
         robotDrive.arcadeDrive(driveStick.getY(), driveStick.getZ() * -1);
     }
     
+    public void disabledInit() {
+    	winchRelay.set(Relay.Value.kOff);
+    	actuatorRelay.set(Relay.Value.kOff);	
+    }
+    
     public void testPeriodic() {
     
     }
