@@ -30,7 +30,7 @@ public class Parameters {
 	public static int driveEncoderCounts = -1; //TODO
 
 	// --- TIMINGS ---
-	public static double actuatorStopTime = 1.75;
+	public static double actuatorStopTime = 1.9;
 
 	// --- JOYSTICKS / DRIVER INPUTS ---
 	public static int driveJsChannel = 0;
